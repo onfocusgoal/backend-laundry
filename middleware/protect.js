@@ -1,7 +1,4 @@
 const jwt = require("jsonwebtoken");
-
-// const User = require("../models/User");
-// const ErrorResponse = require("../utils/errorResponse");
 const { User } = require("../models/User");
 const ErrorResponse = require("../utils/ErrorResponse");
 
@@ -21,11 +18,8 @@ exports.protect = async (req, res, next) => {
 	}
 
 	try {
-		// console.log("token: ", token);
 		const decode = jwt.verify(token, process.env.access_token_secret);
-		// console.log("decode: ", decode);
 		const user = await User.findById(decode.id);
-		// console.log("user; ", user);
 
 		if (!user) {
 			return next(new ErrorResponse("No user found", 404));
